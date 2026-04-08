@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// Login Screen (Stateful)
+// Login Screen
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -27,12 +27,11 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
-  // Controllers
   final TextEditingController userIdController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   String message = "";
-
+  Color messageColor = Colors.black;
 
   @override
   void dispose() {
@@ -48,8 +47,10 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       if (userId == "admin" && password == "1234") {
         message = "Login Successful ✅";
+        messageColor = Colors.green;
       } else {
         message = "Invalid Credentials ❌";
+        messageColor = Colors.red;
       }
     });
   }
@@ -57,64 +58,101 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Login Form"),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
+      body: Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF667eea), Color(0xFF764ba2)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Center(
+          child: Card(
+            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            margin: const EdgeInsets.all(20),
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
 
-            // USER ID FIELD
-            TextField(
-              controller: userIdController,
-              decoration: InputDecoration(
-                labelText: "User ID",
-                hintText: "Enter your user ID",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                  const Text(
+                    "Welcome Back 👋",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // USER ID
+                  TextField(
+                    controller: userIdController,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.person),
+                      labelText: "User ID",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 15),
+
+                  // PASSWORD
+                  TextField(
+                    controller: passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.lock),
+                      labelText: "Password",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 25),
+
+                  // BUTTON
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: handleLogin,
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        backgroundColor: Colors.deepPurple,
+                      ),
+                      child: const Text(
+                        "Login",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 15),
+
+                  // MESSAGE
+                  Text(
+                    message.isEmpty ? "" : message,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: messageColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
               ),
             ),
-
-            const SizedBox(height: 20),
-
-            // PASSWORD FIELD
-            TextField(
-              controller: passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: "Password",
-                hintText: "Enter your password",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 25),
-
-            // LOGIN BUTTON
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: handleLogin,
-                child: const Text("Login"),
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            // OUTPUT MESSAGE
-            Text(
-              message.isEmpty ? "Enter credentials" : message,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
