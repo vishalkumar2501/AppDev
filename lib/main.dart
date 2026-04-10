@@ -8,9 +8,12 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+/*************  ✨ Windsurf Command ⭐  *************/
+/// Builds a material app with a debug banner removed and a
+/// bottom navigation bar example as the home widget.
+/*******  921d82b7-3b71-4ccf-b34c-c1a6d0c6b9bb  *******/  Widget build(BuildContext context) {
     return const MaterialApp(
-      debugShowCheckedModeBanner: false, // 🔥 banner remove
+      debugShowCheckedModeBanner: false,
       home: BottomNavExample(),
     );
   }
@@ -26,7 +29,6 @@ class BottomNavExample extends StatefulWidget {
 class _BottomNavExampleState extends State<BottomNavExample> {
   int selectedIndex = 0;
 
-  // 🔥 Screens ko separate widget bana diya (better practice)
   final List<Widget> pages = const [
     HomeScreen(),
     SearchScreen(),
@@ -42,48 +44,82 @@ class _BottomNavExampleState extends State<BottomNavExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // 🔥 Gradient AppBar (Top Navigation)
       appBar: AppBar(
-        title: const Text("Bottom Navigation Example"),
+        title: const Text("My App"),
         centerTitle: true,
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.purple, Colors.blue],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
       ),
+
       body: pages[selectedIndex],
 
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: selectedIndex,
-        onTap: onItemTapped,
-        type: BottomNavigationBarType.fixed, // 🔥 fix for 3+ items UI
+      // 🔥 Stylish Bottom Navigation
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.blue, Colors.purple],
+          ),
+        ),
+        child: BottomNavigationBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          currentIndex: selectedIndex,
+          onTap: onItemTapped,
+          type: BottomNavigationBarType.fixed,
 
-        selectedItemColor: Colors.blue,      // 🔥 highlight color
-        unselectedItemColor: Colors.grey,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white70,
 
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: "Search",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Profile",
-          ),
-        ],
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: "Search",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: "Profile",
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-// 🔥 Separate Screens (clean structure)
+// 🔥 Screens with better UI
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Home Screen", style: TextStyle(fontSize: 20)),
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.blueAccent, Colors.purpleAccent],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: const Center(
+        child: Text(
+          "🏠 Home Screen",
+          style: TextStyle(fontSize: 24, color: Colors.white),
+        ),
+      ),
     );
   }
 }
@@ -93,8 +129,14 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Search Screen", style: TextStyle(fontSize: 20)),
+    return Container(
+      color: Colors.orange.shade200,
+      child: const Center(
+        child: Text(
+          "🔍 Search Screen",
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
     );
   }
 }
@@ -104,8 +146,14 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Profile Screen", style: TextStyle(fontSize: 20)),
+    return Container(
+      color: Colors.green.shade200,
+      child: const Center(
+        child: Text(
+          "👤 Profile Screen",
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
     );
   }
 }
