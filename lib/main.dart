@@ -8,10 +8,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-/*************  ✨ Windsurf Command ⭐  *************/
-/// Builds a material app with a debug banner removed and a
-/// bottom navigation bar example as the home widget.
-/*******  921d82b7-3b71-4ccf-b34c-c1a6d0c6b9bb  *******/  Widget build(BuildContext context) {
+ Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: BottomNavExample(),
@@ -152,6 +149,43 @@ class ProfileScreen extends StatelessWidget {
         child: Text(
           "👤 Profile Screen",
           style: TextStyle(fontSize: 24),
+          package q77246;
+
+import java.util.*;
+
+public class CTJ77246 {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        for (int i = 0; i < n; i++) sc.nextInt(); // ignore keys
+
+        int[] array = new int[n];
+        for (int i = 0; i < n; i++) array[i] = sc.nextInt();
+
+        int[][] dp = new int[n][n];
+
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i; j < n; j++) {
+
+                dp[i][j] = Integer.MAX_VALUE;
+
+                int sum = 0;
+                for (int k = i; k <= j; k++) sum += array[k];
+
+                for (int k = i; k <= j; k++) {
+                    int left = (k > i) ? dp[i][k - 1] : 0;
+                    int right = (k < j) ? dp[k + 1][j] : 0;
+
+                    dp[i][j] = Math.min(dp[i][j], left + right + sum);
+                }
+            }
+        }
+
+        System.out.println(dp[0][n - 1]);
+    }
+}
         ),
       ),
     );
